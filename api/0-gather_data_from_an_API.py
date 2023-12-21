@@ -29,4 +29,4 @@ if __name__ == "__main__":
         'Employee {} is done with tasks({}/{}):'
         .format(user['name'], len(completed), all_todos), file=sys.stdout)
     for todo_finish in completed:
-        print(todo_finish['title'], file=sys.stdout)
+        print('\t {}' ,format(todo_finish['title']), file=sys.stdout)
