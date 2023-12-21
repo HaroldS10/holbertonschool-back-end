@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Python script that, using REST API, for a given employee ID,
 returns information about the progress of its TODO list.
 """
@@ -29,4 +29,4 @@ if __name__ == "__main__":
         'Employee {} is done with tasks({}/{}):'
         .format(user['name'], len(completed), all_todos), file=sys.stdout)
     for todo_finish in completed:
-        print(todo_finish['title'])
+        print(todo_finish['title'], file=sys.stdout)
