@@ -26,7 +26,7 @@ if __name__ == "__main__":
                 completed.append(todo)
             all_todos += 1
     print(
-    'Employee {} is done with tasks({}/{}):'
-    .format(user['name'], len(completed), all_todos), file=sys.stdout)
+        'Employee {} is done with tasks({}/{}):'
+        .format(user['name'], len(completed), all_todos), file=sys.stdout)
     for todo_finish in completed:
         print('\t {}' .format(todo_finish['title']), file=sys.stdout)
