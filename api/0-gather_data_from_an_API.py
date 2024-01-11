@@ -1,26 +1,29 @@
 #!/usr/bin/python3
-"""Returns to-do list information for a given employee ID."""
+""" Getting my first apis """
+import json
+import requests
+import sys
 
-if __name__ == '__main__':
-    import requests
-    from sys import argv
 
-    user = requests.get('https://jsonplaceholder.typicode.com/users/{}'.
-                        format(argv[1]))
-    tasks = requests.get('https://jsonplaceholder.typicode.com/users/{}/todos'.
-                         format(argv[1]))
-    completed_list = []
-    completed_tasks = 0
-    total_tasks = 0
-
-    employee_name = user.json()['name']
-    for task in tasks.json():
-        total_tasks += 1
-        if task['completed'] is True:
-            completed_list.append(task['title'])
-            completed_tasks += 1
-
-    print("Employee {} has completed tasks({}/{}):".
-          format(employee_name, completed_tasks, total_tasks))
-    for task in completed_list:
-        print("\t {}".format(task))
+if __name__ == "__main__":
+    """Get API"""
+    todos_api = requests.get(
+        'https://jsonplaceholder.typicode.com/todos/')
+    user_api = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}'.format(sys.argv[1]))
+    todo_data = todos_api.text
+    user_data = user_api.text
+    user = json.loads(user_data)
+    todos = json.loads(todo_data)
+    completed = []
+    all_todos = 0
+    for todo in todos:
+        if todo['userId'] == user['id']:
+            if todo['completed']:
+                completed.append(todo)
+            all_todos += 1
+    print(
+        'Employee {} is done with tasks({}/{}):'
+        .format(user['name'], len(completed), all_todos), file=sys.stdout)
+    for finished_todo in completed:
+        print('\t {}'.format(finished_todo['title']), file=sys.stdout)
